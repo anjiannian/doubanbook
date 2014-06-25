@@ -14,8 +14,17 @@ NEWSPIDER_MODULE = 'dbook.spiders'
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'dbook (+http://www.yourdomain.com)'
 
-LOG_LEVEL = 'INFO'
+ITREM_PIPELINES={
+    'dbook.mongo_pipelines.MongoDBPipeline':300
+}
+LOG_LEVEL = 'DEBUG'
+
 RANDOMIZE_DOWNLOAD_DELAY = True
 USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_3) AppleWebKit/536.5 \
      (KHTML, like Gecko) Chrome/19.0.1084.54 Safari/536.5'
 COOKIES_ENABLED = True
+
+MONGODB_SERVER = 'localhost'
+MONGODB_PORT = 27017
+MONGODB_DB = 'douban'
+MONGODB_COLLECTION = 'book'
