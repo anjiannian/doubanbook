@@ -1,2 +1,2 @@
-dbook/.ropeproject/*
+dbook/.ropeproject/**/*
 *.pyc
