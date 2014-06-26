@@ -1,2 +1,6 @@
-dbook/.ropeproject/**/*
-*.pyc
+*
+!*.cfg
+!*.py
+!*.gitignore
+!*/
+dbook/.ropeproject
