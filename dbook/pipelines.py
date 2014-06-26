@@ -18,22 +18,21 @@ class MongoDBPipeline(object):
 
 
     def process_item(self, item, spider):
-        items = set()
-        for i in item:
-            if i in items:
-                raise DropItem("Duplicated item %s" % i["title"])
-                log.msg("Duplicated item %s has been destroyed" % i['title'],
-                        level = log.DEBUG)
-            else:
-                items.add(i)
-                new_book = [{
-                    "link":i["link"],
-                    "title":i["title"],
-                    "author":i["author"],
-                    "desc":i["desc"],
-                    "rate":i["rate"],
-                    "votes":i["votes"]
-                }]
-                self.collection.insert(new_book)
-                log.msg("Book %s has added" % i["title"], level=log.DEBUG)
-                return item
+        self.items_seen = set()
+        if item["link"] in self.items_seen:
+            raise DropItem("Duplicated item %s" % item)
+            log.msg("Duplicated item %s has been destroyed" % item['title'],
+                    level = log.DEBUG)
+        else:
+            self.items_seen.add(item["link"])
+            new_book = [{
+                "link":item["link"],
+                "title":item["title"],
+                "author":item["author"],
+                "desc":item["desc"],
+                "rate":item["rate"],
+                "votes":item["votes"]
+            }]
+            self.collection.insert(new_book)
+            log.msg("Book %s has added" % item["title"], level=log.DEBUG)
+            return item
